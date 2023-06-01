@@ -13,12 +13,16 @@ app.use(express.json())
 app.use(cors());
 
 //Random color picker
-
 function randomClr() {
     const hex = ["#FFADAD", "#FFD6A5", "#FDFFB6","#CAFFBF","#9BF6FF","#A0C4FF","#BDB2FF","#FFC6FF","#fec89a","#e3d5ca",];
     const i = Math.floor(Math.random() * hex.length);
     return hex[i];
 }
+
+app.use((req,res,next) => {
+    console.log(`${req.method} request received.`);
+    next();
+})
 
 app.get("/", (req, res) => {
     fs.readFile(resolve("./database.json"), 'utf8', function readFileCallback(err, data) {
